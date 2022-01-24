@@ -1,0 +1,113 @@
+//Author Name: Eddie Green
+//Date: 1/16/2022
+//Program Name: DroneController
+//Purpose: Simulation using button, drone movement in x, y,z location
+import java.util.Scanner;
+
+class Drone {
+
+	int x;
+	int y;
+	int z;
+	// 1 = North, 2 = east, 3 = south, 4 = west
+	int orientation;
+
+	public Drone() {
+		x = 0;
+		y = 0;
+		z = 0;
+		orientation = 1;
+	}
+// Logic for 3 Move Forward
+	public void forward() {
+		if (orientation == 1) {
+			this.x++;
+		} else if (orientation == 2) {
+			this.y++;
+		} else if (orientation == 3) {
+			this.x--;
+		} else if (orientation == 4) {
+			this.y--;
+		}
+	}
+// Logic for 4 Move Backward
+	public void backward() {
+		if (orientation == 1) {
+			this.x--;
+		} else if (orientation == 2) {
+			this.y--;
+		} else if (orientation == 3) {
+			this.x++;
+		} else if (orientation == 4) {
+			this.y++;
+		}
+	}
+
+	public void up() {
+		this.z++;
+	}
+
+	public void down() {
+		this.z--;
+	}
+// Logic for 5 Move Left
+	public void left() {
+		if (this.orientation == 1) {
+			this.orientation = 4;
+		} else {
+			this.orientation--;
+		}
+	}
+// Logic for 6 Move Right
+	public void right() {
+		if (this.orientation == 4) {
+			this.orientation = 1;
+		} else {
+			this.orientation++;
+		}
+	}
+// Logic for finding Heading Orientation
+	public void position() {
+		String direction = "North";
+		if (this.orientation == 2) {
+			direction = "East";
+		} else if (this.orientation == 3) {
+			direction = "South";
+		} else if (this.orientation == 4) {
+			direction = "West";
+		}
+		System.out.println("Position: " + this.x + ", " + this.y + ", " + this.z + "\nHeading: " + direction);
+	}
+}
+
+public class DroneController {
+	public static void main(String[] args) {
+		Drone myDrone = new Drone();
+		Scanner userin = new Scanner(System.in);
+		String commands = "Which direction would you like to move the drone?\n1 - Move Up\n2 - Move Down\n3 - Move Forward\n4 - Move Backward\n5 - Turn Left\n6 - Turn Right\n7 - Display Position\n8 - Exit Navigation";
+		System.out.println(commands);
+		while(true) {
+			String input = userin.nextLine();
+
+			// Check which number they picked
+			if (input.equals("1")) {
+				myDrone.up();
+			} else if (input.equals("2")) {
+				myDrone.down();
+			} else if (input.equals("3")) {
+				myDrone.forward();
+			} else if (input.equals("4")) {
+				myDrone.backward();
+			} else if (input.equals("5")) {
+				myDrone.left();
+			} else if (input.equals("6")) {
+				myDrone.right();
+			} else if (input.equals("7")) {
+				myDrone.position();
+			} else if (input.equals("8")) {
+				return;
+			}
+			System.out.println(commands);
+		}
+	}
+}
